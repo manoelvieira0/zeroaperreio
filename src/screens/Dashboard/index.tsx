@@ -10,7 +10,8 @@ import {
     User,
     UserGreeting,
     UserName,
-    Icon
+    Icon,
+    HighlightCards
 } from './styles'
 
 export function Dashboard() {
@@ -26,11 +27,15 @@ export function Dashboard() {
                             <UserName>Manoel</UserName>
                         </User>
                     </UserInfo>
-                    <Icon name="power"/>
+                    <Icon name="power" />
                 </UserWrapper>
             </Header>
 
-            <HighlightCard />
+            <HighlightCards horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingLeft: 24}}>
+                <HighlightCard />
+                <HighlightCard />
+                <HighlightCard />
+            </HighlightCards>
         </Container>
     )
 }
