@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import uuid from 'react-native-uuid';
+import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -36,6 +38,10 @@ const schema = Yup.object().shape({
 
 export function Register() {
 
+    type NavigationProps = {
+        navigate:(screen:string) => void;
+     }
+
     const [transactionType, setTransactionType] = useState('');
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
 
@@ -44,11 +50,14 @@ export function Register() {
     const [category, setCategory] = useState({
         key: 'category',
         name: 'Categoria',
-    })
+    });
+
+    const navigation = useNavigation<NavigationProps>();
 
     const {
         control,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
@@ -76,10 +85,12 @@ export function Register() {
 
 
         const newTransaction = {
+            id: String(uuid.v4()),
             name: form.name,
             amount: form.amount,
             transactionType,
-            category: category.key
+            category: category.key,
+            date: new Date(),
         }
 
         try {
@@ -93,6 +104,15 @@ export function Register() {
 
             await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
 
+            reset();
+            setTransactionType('');
+            setCategory({
+                key: 'category',
+                name: 'Categoria',
+            });
+
+            navigation.navigate("Listagem");
+
         } catch (error) {
             console.log(error);
             Alert.alert("Não foi possível salvar")
@@ -105,7 +125,6 @@ export function Register() {
             console.log(JSON.parse(data!))
         }
         loadData();
-
         // async function removeAll() {
         //     await AsyncStorage.removeItem(dataKey);
         // }
