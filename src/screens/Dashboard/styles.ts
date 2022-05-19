@@ -3,7 +3,7 @@ import { FlatList, FlatListProps } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
-import {BorderlessButton, TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import { DataListProps } from '.'
 

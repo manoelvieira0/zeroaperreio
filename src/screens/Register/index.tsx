@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import uuid from 'react-native-uuid';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
@@ -44,8 +44,6 @@ export function Register() {
 
     const [transactionType, setTransactionType] = useState('');
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
-
-    const dataKey = '@gofinances:transactions';
 
     const [category, setCategory] = useState({
         key: 'category',
@@ -94,6 +92,8 @@ export function Register() {
         }
 
         try {
+            const dataKey = '@gofinances:transactions';
+
             const data = await AsyncStorage.getItem(dataKey);
             const currentData = data ? JSON.parse(data) : [];
 
@@ -118,18 +118,6 @@ export function Register() {
             Alert.alert("Não foi possível salvar")
         }
     }
-
-    useEffect(() => {
-        async function loadData() {
-            const data = await AsyncStorage.getItem(dataKey);
-            console.log(JSON.parse(data!))
-        }
-        loadData();
-        // async function removeAll() {
-        //     await AsyncStorage.removeItem(dataKey);
-        // }
-        // removeAll();
-    }, [])
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
