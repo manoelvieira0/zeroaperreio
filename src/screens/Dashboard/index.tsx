@@ -137,6 +137,9 @@ export function Dashboard() {
 
     useEffect(() => {
         loadTransactions();
+
+        const dataKey = '@gofinances:transactions';
+        AsyncStorage.removeItem(dataKey);
     }, [])
 
     useFocusEffect(useCallback(() => {
