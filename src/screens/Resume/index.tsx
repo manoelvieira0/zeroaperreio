@@ -40,6 +40,7 @@ export function Resume() {
                     categorySum += Number(expensive.amount);
                 }
             });
+
             if (categorySum > 0) {
                 const total = categorySum
                     .toLocaleString('pt-BR', {
@@ -52,12 +53,11 @@ export function Resume() {
                     name: category.name,
                     total,
                     color: category.color,
-                })
+                });
             };
         });
-        setTotalByCategories(totalByCategories);
-
-    }
+        setTotalByCategories(totalByCategory);
+    } 
 
     useEffect(() => {
         loadData();
