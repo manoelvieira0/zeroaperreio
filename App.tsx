@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuthContext } from './src/AuthContext';
 import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import 'intl';
@@ -34,8 +35,10 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <StatusBar barStyle='light-content' backgroundColor="transparent"  translucent   />
-          <SingIn />
+          <StatusBar barStyle='light-content' backgroundColor="transparent" translucent />
+          <AuthContext.Provider value={[]}>
+            <SingIn />
+          </AuthContext.Provider>
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
