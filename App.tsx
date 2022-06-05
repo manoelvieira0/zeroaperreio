@@ -17,9 +17,8 @@ import {
 
 import theme from './src/global/styles/theme'
 
-import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
 import { AppRoutes } from './src/routes/app.routes';
-
 import { SingIn } from './src/screens/SignIn';
 
 export default function App() {
@@ -34,12 +33,10 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
           <StatusBar barStyle='light-content' backgroundColor="transparent" translucent />
           <AuthProvider>
-            <SingIn />
+            <Routes />
           </AuthProvider>
-        </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
   );

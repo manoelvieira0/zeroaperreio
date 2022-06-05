@@ -1,27 +1,18 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
+import * as WebBrowser from 'expo-web-browser';
+import * as AuthSession from 'expo-auth-session';
 import * as Google from 'expo-auth-session';
-import * as AppleAuthentication from 'expo-apple-authentication'
-import AsyncStorage from "@react-native-community/async-storage";
+import { useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const {CLIENT_ID} = process.env;
 const {REDIRECT_URI} = process.env;
-
-
-interface AuthProviderProps {
-    children: ReactNode;
-}
 
 interface User {
     id: string;
     name: string;
     email: string;
     photo?: string;
-}
-
-interface AuthContextData {
-    user: User;
-    signInWithGoogle(): Promise<void>
-    signInWithApple(): Promise<void>
 }
 
 interface AuthorizationResponse{
@@ -31,32 +22,50 @@ interface AuthorizationResponse{
     type: string;
 }
 
+
+interface AuthProviderProps {
+    children: ReactNode;
+}
+
+interface AuthContextData {
+    user: User;
+    signInWithGoogle(): Promise<void>
+}
+
+WebBrowser.maybeCompleteAuthSession()
+
+
 const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User>({} as User);
+    const [userStorageLoading, setUserStorageLoading] = useState(true);
+
+    const userStorageKey = '@gofinances:user';
 
     async function signInWithGoogle() {
         try {
             const RESPONSE_TYPE = 'token';
             const SCOPE = encodeURI('profile email');
 
-            const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
-
-            const {type, params} = await Google
-            .startAsync({authUrl}) as AuthorizationResponse
+            const { type, params } = (await AuthSession.startAsync({
+                authUrl: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`,
+              })) as AuthorizationResponse;
 
             if(type === 'success'){
                 const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`)
                 const userInfo = await response.json();
                 
-                setUser({
-                    id: userInfo.id,
-                    email: userInfo.email,
+                const loadedUser: User = {
+                    id: String(userInfo.id),
                     name: userInfo.given_name,
+                    email: userInfo.email,
                     photo: userInfo.picture,
-                })
+                  };
+
+                setUser(loadedUser);
                 console.log(userInfo)
+                await AsyncStorage.setItem(userStorageKey, JSON.stringify(loadedUser));
             }
 
         } catch (error) {
@@ -64,33 +73,21 @@ function AuthProvider({ children }: AuthProviderProps) {
         }
     } 
 
-    async function signInWithApple() {
-        try {
-            const credential = await AppleAuthentication.signInAsync({
-                requestedScopes: [
-                    AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                    AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                ]
-            });
-            if(credential){
-                const userLogged = {
-                    id: String(credential.user),
-                    email: credential.email!,
-                    name: credential.fullName!.givenName!,
-                    photo: undefined,
-                };
-                setUser(userLogged);
-                await AsyncStorage.setItem('@gofinances:user', JSON.stringify(userLogged))
+    useEffect(() => {
+        async function loadUserStorageDate() {
+            const userStoraged = await AsyncStorage.getItem(userStorageKey);
+            if(userStoraged){
+                const userLogged = JSON.parse(userStoraged) as User;
+                setUser(userLogged)
             }
-
-        } catch (error) {
-            throw new Error(error as string)
+            setUserStorageLoading(false)
         }
-    }
+        loadUserStorageDate()
+    },[])
 
     return (
         <AuthContext.Provider value={
-            { user, signInWithGoogle, signInWithApple }
+            { user, signInWithGoogle }
         }>
             {children}
         </AuthContext.Provider>
