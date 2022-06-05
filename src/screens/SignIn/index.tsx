@@ -1,8 +1,9 @@
-import React, {useContext} from "react";
-import { Alert } from "react-native";
+import React, {useContext, useState} from "react";
+import { ActivityIndicator, Alert } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import GoogleSvg from '../../assets/google.svg';
 import LogoSvg from '../../assets/logo.svg';
+import { useTheme } from "styled-components";
 
 import { useAuth } from "../../hooks/auth";
 
@@ -19,14 +20,19 @@ import {
 } from "./styles";
 
 export function SingIn() {
+    const [isLoading, setIsLoading] = useState(false);
     const {signInWithGoogle} = useAuth();
+    const theme = useTheme();
 
     async function handleSignInWithGoogle() {
         try {
-            await signInWithGoogle();
+            setIsLoading(true)
+            return await signInWithGoogle();
         } catch (error) {
             console.log(error)
             Alert.alert('Não foi possível conectar a conta Google')
+        }finally{
+            setIsLoading(false)
         }
     }
 
@@ -55,6 +61,8 @@ export function SingIn() {
                 <FooterWrapper>
                     <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} onPress={handleSignInWithGoogle}/>
                 </FooterWrapper>
+
+                {isLoading && <ActivityIndicator color={theme.colors.shape} style={{marginTop: 18}}/>}
             </Footer>
 
         </Container>

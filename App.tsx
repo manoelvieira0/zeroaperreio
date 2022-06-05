@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthProvider } from './src/hooks/auth';
+import { AuthProvider, useAuth } from './src/hooks/auth';
 import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import 'intl';
@@ -27,7 +27,11 @@ export default function App() {
     Poppins_500Medium,
     Poppins_700Bold
   });
-  if (!fontsLoaded) {
+
+
+  const {userStorageLoading} = useAuth();
+
+  if (!fontsLoaded || userStorageLoading) {
     return <AppLoading />
   }
   return (
