@@ -9,19 +9,25 @@ const { Navigator, Screen } = createBottomTabNavigator();
 import { Dashboard } from "../screens/Dashboard";
 import { Register } from "../screens/Register";
 import { Resume } from "../screens/Resume";
+import { Poppins_500Medium_Italic } from "@expo-google-fonts/poppins";
 
 export function AppRoutes() {
     const theme = useTheme();
     return (
         <Navigator
             screenOptions={{
+                tabBarShowLabel: false,
                 headerShown: false,
-                tabBarActiveTintColor: theme.colors.secondary,
-                tabBarInactiveTintColor: theme.colors.text,
+                tabBarActiveTintColor: theme.colors.shape,
+                tabBarInactiveTintColor: theme.colors.text_black_transparent,
                 tabBarLabelPosition: 'beside-icon',
                 tabBarStyle: {
-                    height: 80,
+                    position: 'relative',
+                    borderTopWidth: 0,
+                    elevation: 0,
+                    height: 60,
                     paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+                    backgroundColor: theme.colors.background,
                 },
             }}
         >

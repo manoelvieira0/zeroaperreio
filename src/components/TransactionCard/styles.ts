@@ -7,8 +7,8 @@ interface TransactionProps {
 }
 
 export const Container = styled.View`
-    background-color: ${({ theme }) => theme.colors.shape};
-    border-radius: 5px;
+    background-color: ${({ theme }) => theme.colors.background_black_transparent};
+    border-radius: 15px;
     padding: 17px 24px;
     margin-bottom: 16px;
 `;
@@ -16,6 +16,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
+    color: ${({theme}) => theme.colors.shape};
 `;
 
 export const Amount = styled.Text <TransactionProps>`

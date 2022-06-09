@@ -7,7 +7,7 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.background};
     width: 100%;
     height: ${RFValue(113)}px;
     align-items: center;
@@ -37,4 +37,12 @@ export const TransactionsTypes = styled.View`
     justify-content: space-between;
     margin-top: 8px;
     margin-bottom: 16px;
+`;
+
+export const Question = styled.Text`
+    color: ${({ theme }) => theme.colors.shape};
+    font-family: ${({ theme }) => theme.fonts.regular};
+    font-size: ${RFValue(12)}px;
+    margin-top: 8px;
+    margin-left: 3px;
 `;

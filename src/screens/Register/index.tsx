@@ -11,6 +11,7 @@ import { InputForm } from "../../components/Forms/InputForm";
 import { TransactionTypeButton } from "../../components/Forms/TransactionTypeButton";
 import { CategorySelectButton } from "../../components/Forms/CategorySelectButton";
 import { CategorySelect } from "../CategorySelect";
+import theme from "../../global/styles/theme";
 
 import {
     Container,
@@ -18,9 +19,11 @@ import {
     Title,
     Form,
     Fields,
-    TransactionsTypes
+    TransactionsTypes,
+    Question,
 } from "./styles";
 import { useAuth } from "../../hooks/auth";
+import { useTheme } from "styled-components";
 
 interface FormData {
     [name: string]: any;
@@ -43,6 +46,7 @@ export function Register() {
         navigate:(screen:string) => void;
      }
 
+    const theme = useTheme()
     const [transactionType, setTransactionType] = useState('');
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
     const {user} = useAuth()
@@ -133,6 +137,7 @@ export function Register() {
                             name="name"
                             control={control}
                             placeholder="Nome"
+                            placeholderTextColor={theme.colors.shape_register}
                             autoCapitalize="sentences"
                             autoCorrect={false}
                             error={errors.name && errors.name.message}
@@ -141,9 +146,13 @@ export function Register() {
                             name="amount"
                             control={control}
                             placeholder="Preço"
+                            placeholderTextColor={theme.colors.shape_register}
                             keyboardType="numeric"
                             error={errors.amount && errors.amount.message}
                         />
+                        <Question>
+                            Selecione o tipo da transação:
+                        </Question>
                         <TransactionsTypes>
                             <TransactionTypeButton
                                 type="up"

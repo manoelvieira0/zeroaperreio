@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import { ActivityIndicator, Alert } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import GoogleSvg from '../../assets/google.svg';
@@ -17,11 +17,12 @@ import {
     SignInTitle,
     Footer,
     FooterWrapper,
+    NameLogo,
 } from "./styles";
 
 export function SingIn() {
     const [isLoading, setIsLoading] = useState(false);
-    const {signInWithGoogle} = useAuth();
+    const { signInWithGoogle } = useAuth();
     const theme = useTheme();
 
     async function handleSignInWithGoogle() {
@@ -41,28 +42,32 @@ export function SingIn() {
             <Header>
                 <TitleWrapper>
                     <LogoSvg
-                        width={RFValue(120)}
-                        height={RFValue(68)}
+                        width={RFValue(180)}
+                        height={RFValue(110)}
                     />
+
+                    <NameLogo>
+                        ZeroAperreio
+                    </NameLogo>
 
                     <Title>
                         Controle suas {'\n'}
                         finanças de forma {'\n'}
-                        muito simples 
+                        muito simples
                     </Title>
                 </TitleWrapper>
 
                 <SignInTitle>
-                    Faça seu login {'\n'}com uma das contas abaixo
+                    Faça seu login {'\n'}com sua conta abaixo
                 </SignInTitle>
             </Header>
 
             <Footer>
                 <FooterWrapper>
-                    <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} onPress={handleSignInWithGoogle}/>
+                    <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} onPress={handleSignInWithGoogle} />
                 </FooterWrapper>
 
-                {isLoading && <ActivityIndicator color={theme.colors.shape} style={{marginTop: 18}}/>}
+                {isLoading && <ActivityIndicator color={theme.colors.shape} style={{ marginTop: 18 }} />}
             </Footer>
 
         </Container>

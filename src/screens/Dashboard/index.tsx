@@ -194,7 +194,7 @@ export function Dashboard() {
                         </HighlightCards>
 
                         <Transactions>
-                            <Title>Listagem</Title>
+                            <Title>Transações</Title>
                             <TransactionList
                                 data={transactions}
                                 keyExtractor={item => item.id}

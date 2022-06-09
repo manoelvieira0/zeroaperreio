@@ -7,9 +7,9 @@ export const Container = styled(TextInput)`
     padding: 16px 18px;
     font-size: ${RFValue(14)}px;
     font-family: ${({theme}) => theme.fonts.regular};
-    color: ${({theme}) => theme.colors.text_dark};
-    background-color: ${({theme}) => theme.colors.shape};
-    border-radius: 5px;
+    color: ${({theme}) => theme.colors.shape};
+    background-color: ${({theme}) => theme.colors.background_black_transparent};
+    border-radius: 15px;
     margin-bottom: 8px;
     
 `;

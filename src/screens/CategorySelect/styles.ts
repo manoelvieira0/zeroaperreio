@@ -40,17 +40,19 @@ export const Category = styled.TouchableOpacity<CategoryProps>`
 
 export const Icon = styled(Feather)`
     font-size: ${RFValue(20)}px;
+    color: ${({theme})=>theme.colors.shape}
 `;
 
 export const Name = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
+    color: ${({theme})=>theme.colors.shape}
 `;
 
 export const Separator = styled.View`
     height: 1px;
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.background_black_transparent};
 `
 
 export const Footer = styled.View`

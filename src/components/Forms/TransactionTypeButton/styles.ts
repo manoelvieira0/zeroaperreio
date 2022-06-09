@@ -20,8 +20,8 @@ export const Container = styled(TouchableOpacity) <ContainerProps>`
     align-items: center;
     border-width: ${({ isActive }) => isActive ? 0 : 1.5}px;
     border-style: solid;
-    border-color: ${({ theme }) => theme.colors.text};;
-    border-radius: 5px;
+    border-color: ${({ theme }) => theme.colors.background_black_transparent};;
+    border-radius: 15px;
     padding: 16px;
     justify-content: center;
     ${({ isActive, type }) => isActive && type === 'up' && css`
@@ -41,4 +41,5 @@ export const Icon = styled(Feather) <IconsProps>`
 export const Title = styled.Text`
     font-size: ${RFValue(14)}px;
     font-family: ${({ theme }) => theme.fonts.regular};
+    color: ${({theme})=> theme.colors.shape};
 `;

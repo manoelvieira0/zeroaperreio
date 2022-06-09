@@ -7,14 +7,24 @@ interface TypeProps {
 }
 
 export const Container = styled.View<TypeProps>`
-    background-color: ${({ theme, type }) => type === 'total' ? theme.colors.secondary : theme.colors.shape};
+
+    ${({ type }) => type === 'up' && css`
+    background-color: ${({ theme }) => theme.colors.success_light};;
+    `}
+    ${({ type }) => type === 'down' && css`
+    background-color: ${({ theme }) => theme.colors.attencion_light};;
+    `}
+    ${({ type }) => type === 'total' && css`
+    background-color: ${({ theme }) => theme.colors.background_black_transparent};;
+    `}
 
     width: ${RFValue(300)}px;
-    border-radius: 5px;
+    border-radius: 15px;
 
     padding: 19px 23px;
-    padding-bottom: ${RFValue(42)}px;
+    padding-bottom: ${RFValue(35)}px;
     margin-right: 16px;
+
 `;
 
 export const Header = styled.View`
@@ -32,10 +42,10 @@ export const Title = styled.Text<TypeProps>`
 export const Icon = styled(Feather) <TypeProps>`
     font-size: ${RFValue(40)}px;
     ${({ type }) => type === 'up' && css`
-    color: ${({ theme }) => theme.colors.success};;
+    color: ${({ theme }) => theme.colors.shape};;
     `}
     ${({ type }) => type === 'down' && css`
-    color: ${({ theme }) => theme.colors.attencion};;
+    color: ${({ theme }) => theme.colors.shape};;
     `}
     ${({ type }) => type === 'total' && css`
     color: ${({ theme }) => theme.colors.shape};;

@@ -9,7 +9,7 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.background};
     width: 100%;
     height: ${RFValue(113)}px;
     align-items: center;
@@ -47,11 +47,13 @@ export const MonthSelectButton = styled(BorderlessButton)`
 
 export const MonthSelectIcon = styled(Feather)`
     font-size: ${RFValue(24)}px;
+    color: ${({theme})=>theme.colors.shape};
 `;
 
 export const Month = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(20)}px;
+    color: ${({theme})=>theme.colors.shape};
 `;
 
 export const LoadContainer = styled.View`

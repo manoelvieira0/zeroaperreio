@@ -16,11 +16,13 @@ export const Header = styled.View`
     width: 100%;
     height: ${RFPercentage(42)}px;
 
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.background};
 
     align-items: flex-start;
     justify-content: center;
     flex-direction: row;
+
+    border-radius: 15px;
 `;
 
 export const UserWrapper = styled.View`
@@ -42,7 +44,7 @@ export const Photo = styled.Image`
     width: ${RFValue(48)}px;
     height: ${RFValue(48)}px;
 
-    border-radius: 10px;
+    border-radius: 15px;
 `;
 
 export const User = styled.View`
@@ -62,11 +64,10 @@ export const UserName = styled.Text`
 `;
 
 export const LogoutButton = styled(TouchableOpacity)`
-
 `;
 
 export const Icon = styled(Feather)`
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.shape};
     font-size: ${RFValue(24)}px;
 `;
 
@@ -89,6 +90,7 @@ export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
     font-family: ${({ theme }) => theme.fonts.regular};
     margin-bottom: 16px;
+    color: ${({theme})=> theme.colors.shape};
 `;
 
 export const TransactionList = styled(FlatList as new (props: FlatListProps<DataListProps>) => FlatList<DataListProps>).attrs({

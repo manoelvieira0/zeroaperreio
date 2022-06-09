@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
     width: 100%;
-    height: 75%;
+    height: 82%;
     background-color: ${({ theme }) => theme.colors.primary};
     justify-content: flex-end;
     align-items: center;
@@ -15,6 +15,13 @@ export const Header = styled.View`
 
 export const TitleWrapper = styled.View`
     align-items: center;
+`;
+
+export const NameLogo = styled.Text`
+    font-family: ${({ theme }) => theme.fonts.medium};
+    color: ${({ theme }) => theme.colors.shape};
+    font-size: ${RFValue(22)}px;
+    text-align: center;
 `;
 
 export const Title = styled.Text`
@@ -38,7 +45,7 @@ export const Footer = styled.View`
     width: 100%;
     height: 30%;
 
-    background-color: ${({theme}) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const FooterWrapper = styled.View`
